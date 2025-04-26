@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="logo-full-black.png" alt="MongoNext Logo" width="180" />
+</div>
+
 # MongoNext
 
 A modern, full-stack e-commerce and content management template built with Next.js, Material UI, and MongoDB Atlas (via Mongoose). This project is designed to be used as an npm library and installed via:
