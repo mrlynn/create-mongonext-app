@@ -1,0 +1,40 @@
+{
+  "name": "create-mongonext-app",
+  "version": "0.1.0",
+  "description": "A Next.js template generator for MongoDB Atlas applications",
+  "main": "index.js",
+  "bin": {
+    "create-mongonext-app": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nextjs",
+    "mongodb",
+    "template",
+    "boilerplate",
+    "material-ui"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
+    "bcryptjs": "^3.0.2",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "gray-matter": "^4.0.3",
+    "inquirer": "^9.2.12",
+    "mongoose": "^8.14.0",
+    "next-auth": "^4.24.11",
+    "ora": "^5.4.1",
+    "react-markdown": "^10.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5"
+  }
+}
