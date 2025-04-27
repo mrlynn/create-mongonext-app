@@ -11,7 +11,8 @@
     "version:patch": "npm version patch && git push --follow-tags",
     "version:minor": "npm version minor && git push --follow-tags",
     "version:major": "npm version major && git push --follow-tags",
-    "publish:dry": "npm publish --dry-run",
+    "prepublishOnly": "echo 'Skipping prepublish'",
+    "publish:dry": "npm pack && tar -xvzf *.tgz && rm -rf package && rm *.tgz",
     "publish": "npm publish --access public"
   },
   "keywords": [
