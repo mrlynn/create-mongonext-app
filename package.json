@@ -45,6 +45,7 @@
   },
   "files": [
     "index.js",
-    "template/"
+    "template/",
+    "logo-full-black.png"
   ]
 }

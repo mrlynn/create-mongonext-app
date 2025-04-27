@@ -150,4 +150,5 @@ For questions or support, open an issue or email [merlynn+mongonext@gmail.com](m
 
 ## License
 
-This project is licensed under the MIT License. # create-mongonext-app
+This project is licensed under the MIT License.
+
