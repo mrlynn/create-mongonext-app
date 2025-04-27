@@ -1,6 +1,6 @@
 {
   "name": "@merlynn/create-mongonext-app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A Next.js template generator for MongoDB Atlas applications",
   "main": "index.js",
   "bin": {

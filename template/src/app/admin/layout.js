@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, Divider } from '@mui/material';
+import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, Divider, ListItemButton } from '@mui/material';
 import Link from 'next/link';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -11,6 +11,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ArticleIcon from '@mui/icons-material/Article';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
+import MovieIcon from '@mui/icons-material/Movie';
 
 const drawerWidth = 240;
 
@@ -38,6 +39,7 @@ export default function AdminLayout({ children }) {
     { text: 'Categories', icon: <CategoryIcon />, path: '/admin/categories' },
     { text: 'Blog Posts', icon: <ArticleIcon />, path: '/admin/blog' },
     { text: 'Users', icon: <PeopleIcon />, path: '/admin/users' },
+    { text: 'Movies', icon: <MovieIcon />, path: '/admin/movies' },
   ];
 
   return (
@@ -63,19 +65,17 @@ export default function AdminLayout({ children }) {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            <ListItem button component="a" href="/" target="_blank">
+            <ListItemButton component={Link} href="/" target="_blank">
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText primary="View Site" />
-            </ListItem>
+            </ListItemButton>
             {menuItems.map((item) => (
-              <Link key={item.text} href={item.path} passHref legacyBehavior>
-                <ListItem button component="a">
-                  <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
-                </ListItem>
-              </Link>
+              <ListItemButton key={item.text} component={Link} href={item.path}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.text} />
+              </ListItemButton>
             ))}
           </List>
           <Divider />

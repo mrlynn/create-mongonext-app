@@ -59,8 +59,8 @@ If you want to clone and develop the template itself:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/mongonext.git
-cd mongonext
+git clone https://github.com/mrlynn/create-mongonext-app.git
+cd create-mongonext-app
 ```
 
 ### 2. Install dependencies
@@ -144,7 +144,7 @@ template/
 
 ## 📧 Contact
 
-For questions or support, open an issue or email [support@mongonext.com](mailto:support@mongonext.com).
+For questions or support, open an issue or email [merlynn+mongonext@gmail.com](mailto:merlynn+mongodnext@gmail.com).
 
 ---
 
