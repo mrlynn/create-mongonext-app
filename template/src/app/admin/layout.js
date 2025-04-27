@@ -12,6 +12,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
 import MovieIcon from '@mui/icons-material/Movie';
+import DescriptionIcon from '@mui/icons-material/Description'; // Add this import at the top
 
 const drawerWidth = 240;
 
@@ -35,6 +36,7 @@ export default function AdminLayout({ children }) {
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/admin' },
+    { text: 'Docs', icon: <DescriptionIcon />, path: 'https://docs.mongonext.com', external: true },
     { text: 'Products', icon: <ShoppingCartIcon />, path: '/admin/products' },
     { text: 'Categories', icon: <CategoryIcon />, path: '/admin/categories' },
     { text: 'Blog Posts', icon: <ArticleIcon />, path: '/admin/blog' },

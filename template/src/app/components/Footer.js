@@ -25,7 +25,7 @@ export default function Footer() {
           </Grid>
           <Grid item xs={6} md={2}>
             <Typography variant="subtitle1" fontWeight={700} gutterBottom>Resources</Typography>
-            <Link href="/docs" color="inherit" underline="hover" display="block">Docs</Link>
+            <Link href="https://docs.mongonext.com" color="inherit" underline="hover" display="block">Docs</Link>
             <Link href="/support" color="inherit" underline="hover" display="block">Support</Link>
             <Link href="/blog" color="inherit" underline="hover" display="block">Blog</Link>
             <Link href="/showcase" color="inherit" underline="hover" display="block">Showcase</Link>

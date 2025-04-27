@@ -28,11 +28,7 @@ const features = [
   {
     icon: <Brightness4Icon color="primary" />, title: 'Dark/Light Mode',
     desc: 'Switch themes instantly. All components and docs are theme-aware.'
-  },
-  {
-    icon: <MenuBookIcon color="primary" />, title: 'Built-in Docs System',
-    desc: 'Write docs in Markdown, auto-generate navigation, and keep your team in sync.'
-  },
+  }
 ];
 
 export default function HomePage() {
@@ -65,7 +61,7 @@ export default function HomePage() {
         </Typography>
         <Button
           component={Link}
-          href="/docs/getting-started"
+          href="https://docs.mongonext.com"
           variant="contained"
           size="large"
           sx={{ mt: 2 }}
