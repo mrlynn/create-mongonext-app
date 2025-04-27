@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -12,13 +13,18 @@ import ArticleIcon from '@mui/icons-material/Article';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
 import MovieIcon from '@mui/icons-material/Movie';
-import DescriptionIcon from '@mui/icons-material/Description'; // Add this import at the top
+import DescriptionIcon from '@mui/icons-material/Description';
+import BookIcon from '@mui/icons-material/Book';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
 
 const drawerWidth = 240;
 
 export default function AdminLayout({ children }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [ragOpen, setRagOpen] = React.useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -74,11 +80,28 @@ export default function AdminLayout({ children }) {
               <ListItemText primary="View Site" />
             </ListItemButton>
             {menuItems.map((item) => (
-              <ListItemButton key={item.text} component={Link} href={item.path}>
+              <ListItemButton key={item.text} component={Link} href={item.path} target={item.external ? '_blank' : undefined}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.text} />
               </ListItemButton>
             ))}
+            <ListItemButton onClick={() => setRagOpen(!ragOpen)}>
+              <ListItemIcon>
+                <BookIcon />
+              </ListItemIcon>
+              <ListItemText primary="RAG" />
+              {ragOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={ragOpen} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }} component={Link} href="/admin/rag-documents">
+                  <ListItemText primary="RAG Documents" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }} component={Link} href="/admin/rag-settings">
+                  <ListItemText primary="RAG Settings" />
+                </ListItemButton>
+              </List>
+            </Collapse>
           </List>
           <Divider />
         </Box>

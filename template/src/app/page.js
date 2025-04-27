@@ -57,7 +57,7 @@ export default function HomePage() {
           MongoNext
         </Typography>
         <Typography variant="h5" color="text.secondary" sx={{ mb: 2 }}>
-          The modern Next.js + MongoDB Atlas starter template with Material UI and NextAuth.js
+          The modern Next.js + MongoDB Atlas starter template with Material UI and NextAuth.js and built-in features such as a RAG chatbot right out of the box.
         </Typography>
         <Button
           component={Link}

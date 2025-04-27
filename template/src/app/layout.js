@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import AuthProvider from './components/AuthProvider';
 import ThemeRegistry from './components/ThemeRegistry';
 import ClientLayoutWrapper from './components/ClientLayoutWrapper';
+import FloatingChatbot from '@/components/FloatingChatbot';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <ThemeRegistry>
             <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+            <FloatingChatbot />
           </ThemeRegistry>
         </AuthProvider>
       </body>
