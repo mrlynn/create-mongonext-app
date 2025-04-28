@@ -6,11 +6,12 @@ const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
 const ora = require('ora');
+const { version } = require('./package.json');
 
 program
   .name('create-mongonext-app')
   .description('Create a new Next.js application with MongoDB Atlas integration')
-  .version('0.1.0')
+  .version(version)
   .argument('[project-directory]', 'Directory to create the project in')
   .action(async (projectDir) => {
     try {
