@@ -2,6 +2,13 @@ import { Card, CardContent, CardMedia, Typography, Box, Chip, Link } from '@mui/
 import { format } from 'date-fns';
 import NextLink from 'next/link';
 
+function stripHtml(html) {
+  if (!html) return '';
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  return div.textContent || div.innerText || '';
+}
+
 export default function BlogPostCard({ post }) {
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -35,7 +42,7 @@ export default function BlogPostCard({ post }) {
           </Link>
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {post.excerpt || post.content.substring(0, 150) + '...'}
+          {stripHtml(post.excerpt || post.content).substring(0, 150) + '...'}
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="caption" color="text.secondary">
