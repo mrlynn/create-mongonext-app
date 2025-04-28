@@ -23,7 +23,9 @@ import {
   Select,
   MenuItem,
   Snackbar,
-  Alert
+  Alert,
+  FormControlLabel,
+  Switch
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -40,7 +42,8 @@ export default function ProductsPage() {
     price: '',
     category: '',
     stock: '',
-    featured: false
+    featured: false,
+    image: '/images/default-product.jpg'
   });
   const [loadingSample, setLoadingSample] = useState(false);
   const [sampleSuccess, setSampleSuccess] = useState(false);
@@ -71,7 +74,8 @@ export default function ProductsPage() {
         price: product.price,
         category: product.category._id,
         stock: product.stock,
-        featured: product.featured
+        featured: product.featured,
+        image: product.image || '/images/default-product.jpg'
       });
     } else {
       setEditingProduct(null);
@@ -81,7 +85,8 @@ export default function ProductsPage() {
         price: '',
         category: '',
         stock: '',
-        featured: false
+        featured: false,
+        image: '/images/default-product.jpg'
       });
     }
     setOpen(true);
@@ -251,6 +256,25 @@ export default function ProductsPage() {
               onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
               required
             />
+            <TextField
+              margin="dense"
+              label="Image URL"
+              fullWidth
+              value={formData.image}
+              onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+              placeholder="/images/default-product.jpg"
+            />
+            <Box sx={{ mt: 2 }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formData.featured}
+                    onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                  />
+                }
+                label="Featured Product"
+              />
+            </Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Cancel</Button>

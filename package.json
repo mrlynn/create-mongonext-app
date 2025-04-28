@@ -37,7 +37,8 @@
     "mongoose": "^8.14.0",
     "next-auth": "^4.24.11",
     "ora": "^5.4.1",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
     "eslint": "^8.56.0",

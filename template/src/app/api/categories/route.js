@@ -2,22 +2,24 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Category from '@/models/Category';
 
-// GET all categories or a single category by ID
+// GET all categories with optional filtering
 export async function GET(request) {
   try {
     await connectDB();
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
+    const type = searchParams.get('type');
+    const parent = searchParams.get('parent');
+    const isActive = searchParams.get('isActive');
 
-    if (id) {
-      const category = await Category.findById(id);
-      if (!category) {
-        return NextResponse.json({ error: 'Category not found' }, { status: 404 });
-      }
-      return NextResponse.json(category);
-    }
+    const query = {};
+    if (type) query.type = type;
+    if (parent) query.parent = parent;
+    if (isActive !== null) query.isActive = isActive === 'true';
 
-    const categories = await Category.find({ isActive: true });
+    const categories = await Category.find(query)
+      .sort({ order: 1, name: 1 })
+      .populate('parent', 'name slug');
+    
     return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -29,6 +31,15 @@ export async function POST(request) {
   try {
     await connectDB();
     const body = await request.json();
+    
+    // Validate type
+    if (body.type && !['product', 'blog', 'both'].includes(body.type)) {
+      return NextResponse.json(
+        { error: 'Invalid category type' },
+        { status: 400 }
+      );
+    }
+
     const category = await Category.create(body);
     return NextResponse.json(category, { status: 201 });
   } catch (error) {
@@ -44,6 +55,14 @@ export async function PUT(request) {
     const id = searchParams.get('id');
     const body = await request.json();
 
+    // Validate type if provided
+    if (body.type && !['product', 'blog', 'both'].includes(body.type)) {
+      return NextResponse.json(
+        { error: 'Invalid category type' },
+        { status: 400 }
+      );
+    }
+
     const category = await Category.findByIdAndUpdate(id, body, { new: true });
     if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
@@ -54,14 +73,19 @@ export async function PUT(request) {
   }
 }
 
-// DELETE a category
+// DELETE a category (soft delete)
 export async function DELETE(request) {
   try {
     await connectDB();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
-    const category = await Category.findByIdAndUpdate(id, { isActive: false }, { new: true });
+    const category = await Category.findByIdAndUpdate(
+      id,
+      { isActive: false },
+      { new: true }
+    );
+    
     if (!category) {
       return NextResponse.json({ error: 'Category not found' }, { status: 404 });
     }

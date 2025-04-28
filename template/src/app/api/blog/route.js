@@ -2,24 +2,45 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
 
-// GET all blog posts or a single post by ID
+// GET all blog posts or a single post by ID or slug
 export async function GET(request) {
   try {
-    await connectDB();
+    console.log('Attempting to connect to MongoDB...');
+    const db = await connectDB();
+    if (!db) {
+      console.error('Failed to connect to MongoDB');
+      return NextResponse.json({ error: 'Database connection failed' }, { status: 500 });
+    }
+    console.log('MongoDB connection successful');
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
+    const slug = searchParams.get('slug');
 
     if (id) {
-      const post = await BlogPost.findById(id);
+      console.log('Fetching post by ID:', id);
+      const post = await BlogPost.findById(id).populate('author categories');
       if (!post) {
         return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
       }
       return NextResponse.json(post);
     }
 
-    const posts = await BlogPost.find().sort({ createdAt: -1 });
+    if (slug) {
+      console.log('Fetching post by slug:', slug);
+      const post = await BlogPost.findOne({ slug }).populate('author categories');
+      if (!post) {
+        return NextResponse.json({ error: 'Blog post not found' }, { status: 404 });
+      }
+      return NextResponse.json(post);
+    }
+
+    console.log('Fetching all blog posts');
+    const posts = await BlogPost.find().populate('author categories').sort({ createdAt: -1 });
+    console.log(`Found ${posts.length} posts`);
     return NextResponse.json(posts);
   } catch (error) {
+    console.error('Error in blog API:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

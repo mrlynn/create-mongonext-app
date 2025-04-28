@@ -7,6 +7,8 @@ if (!MONGODB_URI) {
   console.error('MONGODB_URI is not defined. Please check your .env.local file');
   // Instead of throwing, we'll allow the app to continue but with limited functionality
   // This is better for development when you might not always need the database
+} else {
+  // console.log('MONGODB_URI is defined:', MONGODB_URI.substring(0, 20) + '...');
 }
 
 let cached = global.mongoose;
@@ -27,15 +29,18 @@ async function connectDB() {
   }
 
   if (cached.conn) {
+    console.log('Using cached MongoDB connection');
     return cached.conn;
   }
 
   if (!cached.promise) {
+    console.log('Creating new MongoDB connection...');
     const opts = {
       bufferCommands: false,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+      console.log('MongoDB connected successfully');
       return mongoose;
     });
   }
