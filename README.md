@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="logo-full-black.png" alt="MongoNext Logo" width="180" />
-</div>
+![MongoNext Logo](https://raw.githubusercontent.com/mrlynn/create-mongonext-app/main/logo-full-black.png)
 
 # MongoNext
 
