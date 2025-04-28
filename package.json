@@ -12,6 +12,9 @@
     "version:minor": "npm version minor && git push --follow-tags",
     "version:major": "npm version major && git push --follow-tags"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "nextjs",
     "mongodb",
@@ -25,6 +28,8 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^7.0.2",
+    "@tiptap/react": "^2.11.7",
+    "@tiptap/starter-kit": "^2.11.7",
     "bcryptjs": "^3.0.2",
     "chalk": "^4.1.2",
     "commander": "^11.1.0",

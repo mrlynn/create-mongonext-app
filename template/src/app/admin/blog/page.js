@@ -23,11 +23,26 @@ import {
   FormControl,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  ButtonGroup,
+  Tooltip
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Underline from '@tiptap/extension-underline';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+import TitleIcon from '@mui/icons-material/Title';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+import CodeIcon from '@mui/icons-material/Code';
+import UndoIcon from '@mui/icons-material/Undo';
+import RedoIcon from '@mui/icons-material/Redo';
 
 export default function BlogAdminPage() {
   const [posts, setPosts] = useState([]);
@@ -41,6 +56,21 @@ export default function BlogAdminPage() {
     status: 'draft'
   });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
+
+  const editor = useEditor({
+    extensions: [StarterKit, Underline],
+    content: formData.content,
+    onUpdate: ({ editor }) => {
+      setFormData((prev) => ({ ...prev, content: editor.getHTML() }));
+    },
+  });
+
+  useEffect(() => {
+    if (open && editor && formData.content !== editor.getHTML()) {
+      editor.commands.setContent(formData.content || '');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, formData.content, editor]);
 
   useEffect(() => {
     fetchPosts();
@@ -170,15 +200,28 @@ export default function BlogAdminPage() {
               multiline
               rows={2}
             />
-            <TextField
-              label="Content (Markdown)"
-              value={formData.content}
-              onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-              fullWidth
-              multiline
-              rows={8}
-              required
-            />
+            <Box>
+              <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                Content
+              </Typography>
+              {editor && (
+                <ButtonGroup variant="outlined" size="small" sx={{ mb: 1 }}>
+                  <Tooltip title="Bold"><Button onClick={() => editor.chain().focus().toggleBold().run()} color={editor.isActive('bold') ? 'primary' : 'inherit'}><FormatBoldIcon /></Button></Tooltip>
+                  <Tooltip title="Italic"><Button onClick={() => editor.chain().focus().toggleItalic().run()} color={editor.isActive('italic') ? 'primary' : 'inherit'}><FormatItalicIcon /></Button></Tooltip>
+                  <Tooltip title="Underline"><Button onClick={() => editor.chain().focus().toggleUnderline().run()} color={editor.isActive('underline') ? 'primary' : 'inherit'}><FormatUnderlinedIcon /></Button></Tooltip>
+                  <Tooltip title="Heading"><Button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} color={editor.isActive('heading', { level: 2 }) ? 'primary' : 'inherit'}><TitleIcon /></Button></Tooltip>
+                  <Tooltip title="Bullet List"><Button onClick={() => editor.chain().focus().toggleBulletList().run()} color={editor.isActive('bulletList') ? 'primary' : 'inherit'}><FormatListBulletedIcon /></Button></Tooltip>
+                  <Tooltip title="Ordered List"><Button onClick={() => editor.chain().focus().toggleOrderedList().run()} color={editor.isActive('orderedList') ? 'primary' : 'inherit'}><FormatListNumberedIcon /></Button></Tooltip>
+                  <Tooltip title="Blockquote"><Button onClick={() => editor.chain().focus().toggleBlockquote().run()} color={editor.isActive('blockquote') ? 'primary' : 'inherit'}><FormatQuoteIcon /></Button></Tooltip>
+                  <Tooltip title="Code"><Button onClick={() => editor.chain().focus().toggleCodeBlock().run()} color={editor.isActive('codeBlock') ? 'primary' : 'inherit'}><CodeIcon /></Button></Tooltip>
+                  <Tooltip title="Undo"><Button onClick={() => editor.chain().focus().undo().run()}><UndoIcon /></Button></Tooltip>
+                  <Tooltip title="Redo"><Button onClick={() => editor.chain().focus().redo().run()}><RedoIcon /></Button></Tooltip>
+                </ButtonGroup>
+              )}
+              <Paper variant="outlined" sx={{ p: 2, minHeight: 200, '& .ProseMirror': { outline: 'none', minHeight: 150 } }}>
+                <EditorContent editor={editor} />
+              </Paper>
+            </Box>
             <FormControl fullWidth>
               <InputLabel>Status</InputLabel>
               <Select

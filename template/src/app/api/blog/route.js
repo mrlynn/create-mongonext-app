@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import BlogPost from '@/models/BlogPost';
+import Category from '@/models/Category';
 
 // GET all blog posts or a single post by ID or slug
 export async function GET(request) {

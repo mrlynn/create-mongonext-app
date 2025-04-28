@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@tiptap/extension-underline": "^2.11.7",
     "bcryptjs": "^2.4.3",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",

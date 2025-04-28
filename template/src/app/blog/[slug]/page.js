@@ -2,7 +2,6 @@
 
 import { Container, Typography, Box, Chip, Avatar, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import { format } from 'date-fns';
 import Image from 'next/image';
 
@@ -90,7 +89,7 @@ export default function BlogPostPage({ params }) {
         </Box>
 
         <Box sx={{ typography: 'body1' }}>
-          <ReactMarkdown>{post.content}</ReactMarkdown>
+          <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </Box>
       </Box>
     </Container>
