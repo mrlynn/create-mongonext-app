@@ -11,8 +11,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.0.2",
-    "@mui/material": "^7.0.2",
+    "@mui/icons-material": "7.0.2",
+    "@mui/material": "7.0.2",
+    "@mui/system": "7.0.2",
+    "@mui/utils": "7.0.2",
     "@tiptap/extension-underline": "^2.11.7",
     "bcryptjs": "^2.4.3",
     "date-fns": "^4.1.0",
@@ -22,8 +24,8 @@
     "next-auth": "^4.24.11",
     "nextra-theme-docs": "^4.2.17",
     "openai": "^4.96.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-markdown": "^10.1.0"
   },
   "devDependencies": {
